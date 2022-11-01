@@ -1,0 +1,55 @@
+.CM_introduce_title{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-family: 'NanumSquare', serif;
+}
+.CM_introduce_paragraph{
+    padding-bottom: 2rem;
+    font-family: 'NanumSquare', serif;
+}
+
+a{
+    text-decoration: none; /*text 밑줄 없애기*/
+    color: #1e1e1e;
+}
+a:hover{ /*마우스를 올렸을떄*/
+    color: orange;
+}
+.mw-500{
+    max-width: 500px;
+    padding: 1rem 1.5rem;
+}
+.mw-200{
+    max-width: 200px;
+    padding: 1rem 1.5rem;
+}
+
+.footer{
+    padding-bottom: 3rem;
+    padding-top: 1rem;
+}
+.header_title{
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+}
+.header_span{
+    padding-top: 0.5rem;
+}
+p{
+    font-size: 20px;
+}
+.NNS_B{
+    font-family: 'NanumSquare', serif;
+}
+.sidebar_title{
+    padding-top: 4.1rem;
+}
+.Developer_introduce_title{
+    padding-bottom: 1rem;
+}
+.Developer_introduce{
+
+}
+.footer_information{
+    padding-top: 1rem;
+}
