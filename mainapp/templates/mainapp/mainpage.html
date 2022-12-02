@@ -12,5 +12,31 @@
             <p>조선대학교는 총 54개의 건물을 가지고 있는 아주 넓은 대학교 입니다.</p>
             <p>조선대학교 에서 이동을 할때 어디로 가야할지 모르고 어디가 가장 빠른길인지 궁금하면 사용하시는것을 추천합니다.</p>
         </div>
+        <div class="CM_Map_Button">
+            <button type="button" class="btn btn-secondary Button1">
+                <a href="{% url 'mapapp:map' %}">
+                    기본 지도
+                </a>
+            </button>
+            <div class="Button1_text">
+                기본 지도 는 조선대학교 내부에 있는 건물 54개의 대한 정보를 담고 있는 지도로 각 건물 별로 아이콘 표시와 함께 사이트 별 링크를 첨부 해 두었습니다.
+            </div>
+            <button type="button" class="btn btn-secondary Button2">
+                <a href="{% url 'mapapp:search' %}">
+                    검색 지도
+                </a>
+            </button>
+            <div class="Button2_text">
+                검색 지도 는 조선대학교 건물을 이동시 도보 기준 가장 최적의 경로를 알려주는 길찾기 형 지도입니다.
+            </div>
+            <button type="button" class="btn btn-secondary Button3">
+                <a href="{% url 'mapapp:bus' %}">
+                    버스 지도
+                </a>
+            </button>
+            <div class="Button3_text">
+                버스 노선 정보를 담고 있는 지도
+            </div>
+        </div>
     </div>
 {% endblock %}

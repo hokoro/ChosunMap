@@ -4,7 +4,34 @@ from django.db import models
 # Create your models here.
 
 class Mode(models.Model):
-    mode = models.BooleanField(default=True, null=False, blank=False)
+    mode = models.IntegerField(null=False, blank=False)
+
+
+class Data(models.Model):
+    name = models.CharField(max_length=15, blank=False, null=False)
+    data = models.FileField(upload_to='data/', null=False)
+
+
+class Node(models.Model):
+    name = models.CharField(max_length=30)
+    number = models.IntegerField(blank=False)
+
+
+class Bus(models.Model):
+    name = models.CharField(max_length=30)
+    latitude = models.FloatField(null=False, blank=False)
+    longitude = models.FloatField(null=False, blank=False)
+
+
+class Route(models.Model):
+    name = models.CharField(max_length=10)
+    route = models.CharField(max_length=400)
+
+
+class Road(models.Model):
+    name = models.CharField(max_length=30)
+    latitude = models.FloatField(null=False, blank=False)
+    longitude = models.FloatField(null=False, blank=False)
 
 
 class Building(models.Model):
@@ -13,9 +40,18 @@ class Building(models.Model):
     longitude = models.FloatField(null=False, blank=False)
     color = models.CharField(max_length=10, null=True)
     role = models.CharField(max_length=10, null=True)
-    mapping = models.BooleanField(default=True, null=False, blank=False)
-    hompage = models.CharField(max_length=100, null=True, blank=False)
+    homepage = models.CharField(max_length=100, null=True, blank=False)
     prefix = models.BooleanField(default=False)
+
+
+class Search_Bus(models.Model):
+    bus_route = (
+        ('본관행', '본관행'),
+        ('사회과학관행', '사회과학관행'),
+        ('글로벌하우스행', '글로벌하우스행')
+    )
+
+    route = models.CharField(max_length=20, choices=bus_route)
 
 
 class Search(models.Model):
@@ -31,14 +67,14 @@ class Search(models.Model):
         ('글로벌하우스(기숙사)', '글로벌하우스(기숙사)'),
         ('대운동장', '대운동장'),
         ('미술대학(미술관)', '미술대학(미술관)'),
-        ('백학여학사', '백학여학사'),
+        ('백학여학사(기숙사)', '백학여학사(기숙사)'),
         ('법과대학', '법과대학'),
         ('본관', '본관'),
         ('사회대학&사범대학', '사회대학&사범대학'),
         ('생명공학관', '생명공학관'),
         ('생산교육실험실습동', '생산교육실험실습동'),
         ('서석홀', '서석홀'),
-        ('백학남학사', '백학남학사'),
+        ('백학남학사(기숙사)', '백학남학사(기숙사)'),
         ('솔마루(식당)', '솔마루(식당)'),
         ('약학대학1호관(약학관)', '약학대학1호관(약학관)'),
         ('약학대학2호관', '약학대학2호관'),
@@ -66,6 +102,14 @@ class Search(models.Model):
         ('중앙도서관', '중앙도서관'),
         ('창업보육센터', '창업보육센터'),
         ('체육대학', '체육대학'),
+        ('치과대학(교육동)', '치과대학(교육동)'),
+        ('치과대학(연구동)', '치과대학(연구동)'),
+        ('태양에너지실증연구단지', '태양에너지실증연구단지'),
+        ('학군단(ROTC)', '학군단(ROTC)'),
+        ('학생회관(동아리연합회)', '학생회관(동아리연합회)'),
+        ('항공우주&선박해양공학관', '항공우주&선박해양공학관'),
+        ('해오름관', '해오름관'),
+        ('황금추관(고시원)', '황금추관(고시원)'),
 
     )
     departure = models.CharField(max_length=40, choices=buildings)

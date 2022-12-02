@@ -7,6 +7,54 @@
     padding-bottom: 2rem;
     font-family: 'NanumSquare', serif;
 }
+.CM_Map_Button{
+    padding-bottom: 2rem;
+    font-family: 'NanumSquare', serif;
+}
+.alert_message{
+    font-weight: bold;
+}
+button{
+    opacity: 1;
+    border-radius: 40px;
+}
+.Button1_text{
+        padding: 15px 20px;
+        background-color: #444444;
+        border-radius: 5px;
+        color: #ffffff;
+        display: none;
+        position: relative;
+        text-align: center;
+}
+.Button1:hover + .Button1_text{
+    display: block;
+}
+.Button2_text{
+        padding: 15px 20px;
+        background-color: #444444;
+        border-radius: 5px;
+        color: #ffffff;
+        display: none;
+        position: relative;
+        text-align: center;
+}
+.Button2:hover + .Button2_text{
+    display: block;
+}
+
+.Button3_text{
+        padding: 15px 20px;
+        background-color: #444444;
+        border-radius: 5px;
+        color: #ffffff;
+        display: none;
+        position: relative;
+        text-align: center;
+}
+.Button3:hover + .Button3_text{
+    display: block;
+}
 
 a{
     text-decoration: none; /*text 밑줄 없애기*/
@@ -50,6 +98,13 @@ p{
 .Developer_introduce{
 
 }
+
 .footer_information{
     padding-top: 1rem;
+}
+.Message_Text{
+    color: red;
+}
+.Message_Button{
+
 }

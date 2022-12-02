@@ -2,22 +2,11 @@
 {% load bootstrap4 %}
 {% block content %}
     <div class = "text-center mw-500 m-auto">  <!--bootstrap 에서 제공해주는 class-->
-        {% if messages %}
-            <div class="Message_Text">
-                {% for message in messages %}
-                    <div class="alert" role="alert">
-                        <div class="alert_message">
-                            {{ message }}
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
         <div class = "m-5"> <!--margin 5-->
-            <h4>Search</h4>
+            <h4>Bus</h4>
         </div>
         <div class>
-            <form action = "{% url 'mapapp:search' %}"  method = "post"> {# image 파일 있으면 encoding type 필수 #}
+            <form action = "{% url 'mapapp:bus' %}"  method = "post"> {# image 파일 있으면 encoding type 필수 #}
                 {% csrf_token %}
                 {% bootstrap_form form %}  <!--usercreateform 에 형식이 이미 지정이 되있다 가져와서 쓰기만 하면 된다.. 출력 할때는 토큰 두개 사용용-->
                 <div class = "m-5">
@@ -25,6 +14,5 @@
                 </div>
             </form>
         </div>
-
     </div>
 {% endblock %}
