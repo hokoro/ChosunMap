@@ -152,6 +152,7 @@ class Mapping:
         # distance_df = distance_df.astype('float')
         # time_df = time_df.astype('float')
 
+        #Nan = np.inf
         distance_df = distance_df.fillna(np.inf)
         time_df = time_df.fillna(np.inf)
 
@@ -198,13 +199,14 @@ class Mapping:
                 [Node.objects.get(number=time_path[i]).name, Node.objects.get(number=time_path[i + 1]).name])
             time_str.append(
                 f' {i + 1} 경로 : {time_node_list[i][0]} -- > {time_node_list[i][1]} 거리: {time_list[i] // 60}분 {time_list[i] % 60}초 \n')
-
+        print(f'distance_list : {distance_list} ,distance_node_list :{distance_node_list}, distance_str : {distance_str}')
+        print(f'time_list: {time_list} ,time_node_list : {time_node_list} , time_str : {time_str}')
         # distance path convert Building or Road
         for distance in distance_path:
             distance_location = Node.objects.get(number=distance).name
 
             # distance over 54 = Road information
-            if distance > 54:
+            if distance > 53:
                 road_data = Road.objects.get(name=distance_location)
                 distance_lal.append([road_data.latitude, road_data.longitude])
             # distance under 54 = Building information
@@ -231,7 +233,7 @@ class Mapping:
             time_location = Node.objects.get(number=time).name
 
             # time over 54 = Road information
-            if time > 54:
+            if time > 53:
                 road_data = Road.objects.get(name=time_location)
                 time_lal.append([road_data.latitude, road_data.longitude])
             # time under 54 = Building information
@@ -255,6 +257,9 @@ class Mapping:
                         popup=f"<a href={building_data.homepage} target=_blank><pre>{building_data.name}</pre></a>",
                         tooltip=building_data.name,
                     ).add_to(self.map)
+
+        print(f'distance_lal : {distance_lal}')
+        print(f'time_lal : {time_lal}')
 
         # poly line case 1.distance route 2.time route
         if distance_node_list == time_node_list:
@@ -283,6 +288,7 @@ class Mapping:
         bus_station_str = ""
         # Bus Station Icon
         for r in route_list:
+            print(f'infomation: {r}')
             latitude = Bus.objects.get(name=r).latitude
             longitude = Bus.objects.get(name=r).longitude
             location_data.append([latitude, longitude])
