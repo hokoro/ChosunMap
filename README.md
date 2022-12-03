@@ -75,10 +75,44 @@
 
 ### 개미 알고리즘의 개념 
 [알고리즘](http://antalg.egloos.com/v/82254)
-
+- 집을 막 나온 개미들은 무작정 개미집 주변을 돌아다닌다.
+- 만약 음식을 찾아내면 개미는 페로몬을 뿌리며 집으로 돌아온다.
+- 이후에 집을 나오는 개미들은 페로몬을 따라 이동할 확률이 높다.
+- 개미가 집으로 돌아오는 횟수가 많을수록 그 경로는 더 견고해진다.
+- 긴 경로와 짧은 경로가 있으면 같은 시간에 짧은 경로로 이동할 수 있는 횟수가 많다.
+- 짧은 경로는 갈수록 더 많은 페로몬이 뿌려지면서 더욱 견고해진다.
+- 페로몬은 휘발성이기 때문에 시간이 지나면서 긴 경로는 사라진다.
+- 결국 모든 개미가 짧은 경로를 선택한다.
+ 
 ### 개미 알고리즘 참고 소스
 [소스](https://github.com/Akavall/AntColonyOptimization/blob/c585c5cfc9b0e6b709322ac15fe1e2193b20d8e4/ant_colony.py#L44)
 
+#### 기존 알고리즘과의 차이점
+- 모든 노드가 연결되어 있지 않아도 실행할 수 있도록 변경
+```python
+realvisited = list()
+realvisited.append(start)
+
+if move == False:
+  realvisited.remove(prev)
+  prev = realvisited[len(realvisited)-1]
+  path.pop()
+else:
+  path.append((prev, move))
+  prev = move
+  visited.append(move)
+  realvisited.append((move))
+  if prev == goal:
+    break
+```
+
+- 목적지와 인접한 노드의 페로몬 값을 미리 증가시켜 탐색시간 감소
+```python
+for i in range(len(self.distances[0])):
+  if self.pheromone[(self.goal, i)] and self.pheromone[(i, self.goal)] != 0:
+    self.pheromone[(self.goal, i)] += 2
+    self.pheromone[(i, self.goal)] += 2
+```
 ### 향상된 개미 알고리즘 참고 논문 
 [논문](https://www.hindawi.com/journals/mpe/2016/7672839/)
 
