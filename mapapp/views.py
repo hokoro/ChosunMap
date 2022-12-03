@@ -9,7 +9,7 @@ from folium import plugins
 from mapapp.forms import SearchCreationForm, BusCreationForm
 from mapapp.map import Mapping
 from mapapp.models import Building, Search, Mode, Search_Bus
-
+import time
 
 def Message(request):
     return render(request, 'mapapp/message.html')
@@ -34,6 +34,7 @@ def SetMap(request):
         arrival = Search.objects.get(id=walk_count).arrival
         if departure != arrival:
             map_object.Searching(departure, arrival)
+
         else:
             messages.add_message(request, messages.ERROR, "출발지와 목적지가 같습니다")
             return HttpResponseRedirect(reverse('mapapp:search'))

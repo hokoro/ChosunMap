@@ -163,8 +163,8 @@ class Mapping:
         print(time_np.shape)
 
         # ACO object
-        distance_aco = ACO.AntColony(start, end, dis_np, 10, 1, 100, 0.95, alpha=1.1, beta=0.5)
-        time_aco = ACO.AntColony(start, end, time_np, 10, 1, 100, 0.95, alpha=1.1, beta=0.5)
+        distance_aco = ACO.AntColony(start, end, dis_np, 10, 1, 200, 0.95, alpha=1.1, beta=0.5)
+        time_aco = ACO.AntColony(start, end, time_np, 10, 1, 200, 0.95, alpha=1.1, beta=0.5)
         # ACO Run()
         distance_path = distance_aco.run()
         time_path = time_aco.run()
@@ -186,23 +186,23 @@ class Mapping:
         # distance route str
         distance_str = []
         time_str = []
-        for i in range(len(distance_path) - 1):
-            distance_list.append(dis_np[distance_path[i]][distance_path[i + 1]])
+        for i in range(len(distance_path[0]) - 1):
+            distance_list.append(dis_np[distance_path[0][i]][distance_path[0][i + 1]])
             distance_node_list.append(
-                [Node.objects.get(number=distance_path[i]).name, Node.objects.get(number=distance_path[i + 1]).name])
+                [Node.objects.get(number=distance_path[0][i]).name, Node.objects.get(number=distance_path[0][i + 1]).name])
             distance_str.append(
                 f' {i + 1} 경로 : {distance_node_list[i][0]} -- > {distance_node_list[i][1]} 거리: {distance_list[i]}m \n')
         # time sum
-        for i in range(len(time_path) - 1):
-            time_list.append(int(time_np[time_path[i]][time_path[i + 1]]))
+        for i in range(len(time_path[0]) - 1):
+            time_list.append(int(time_np[time_path[0][i]][time_path[0][i + 1]]))
             time_node_list.append(
-                [Node.objects.get(number=time_path[i]).name, Node.objects.get(number=time_path[i + 1]).name])
+                [Node.objects.get(number=time_path[0][i]).name, Node.objects.get(number=time_path[0][i + 1]).name])
             time_str.append(
                 f' {i + 1} 경로 : {time_node_list[i][0]} -- > {time_node_list[i][1]} 거리: {time_list[i] // 60}분 {time_list[i] % 60}초 \n')
         print(f'distance_list : {distance_list} ,distance_node_list :{distance_node_list}, distance_str : {distance_str}')
         print(f'time_list: {time_list} ,time_node_list : {time_node_list} , time_str : {time_str}')
         # distance path convert Building or Road
-        for distance in distance_path:
+        for distance in distance_path[0]:
             distance_location = Node.objects.get(number=distance).name
 
             # distance over 54 = Road information
@@ -229,7 +229,7 @@ class Mapping:
                         tooltip=building_data.name,
                     ).add_to(self.map)
         # time path convert Building or Road
-        for time in time_path:
+        for time in time_path[0]:
             time_location = Node.objects.get(number=time).name
 
             # time over 54 = Road information

@@ -32,19 +32,34 @@ class AntColony(object):
     def run(self):
         shortest_path = None
         all_time_shortest_path = ("placeholder", np.inf)  # 제일 짧은 경로
+        # 목적지 주변 노드에 미리 페로몬 수치를 2 증가시켜 목적지 주변에 개미가 오면 목적지로 바로 올 확률을 높임
+        for i in range(len(self.distances[0])):
+            if self.pheromone[(self.goal, i)] and self.pheromone[(i, self.goal)] != 0:
+                self.pheromone[(self.goal, i)] += 2
+                self.pheromone[(i, self.goal)] += 2
+        # 알고리즘 실행
         for i in range(self.n_iterations):
-            all_paths, visited = self.gen_all_paths()  # 개미들이 지나온 경로와 거리 저장하는 변수
+            # print('시도횟수:', i+1)
+            all_paths = self.gen_all_paths()  # 개미들이 지나온 경로와 거리, 지나온 노드 저장하는 변수
             self.spread_pheromone(all_paths, self.n_best, shortest_path=shortest_path)  # 페로몬 뿌리는 함수 호출
             shortest_path = min(all_paths, key=lambda x: x[1])
             if shortest_path[1] < all_time_shortest_path[1]:  # 이번 회차의 최단 거리가 전체 최단거리보다 짧으면 갱신
                 all_time_shortest_path = shortest_path
+                smallest_visited = shortest_path[2]
+            elif shortest_path[1] == all_time_shortest_path[1]:
+                if len(shortest_path[2]) < len(smallest_visited):
+                    all_time_shortest_path = shortest_path
+                    smallest_visited = shortest_path[2]
             self.pheromone = self.pheromone * self.decay  # 페로몬 증발
-        return visited
+            # print(shortest_path)
+            # print(smallest_visited)
+        return smallest_visited, all_time_shortest_path[1]  # 지나온 노드와 거리 리턴
+
 
     # 페로몬 뿌리는 함수
     def spread_pheromone(self, all_paths, n_best, shortest_path):
         sorted_paths = sorted(all_paths, key=lambda x: x[1])  # 거리 기준으로 오름차순 정렬
-        for path, dist in sorted_paths[:n_best]:  # n_best 만큼의 최적의 경로를 뽑아서 반복
+        for path, dist,visited in sorted_paths[:n_best]:  # n_best 만큼의 최적의 경로를 뽑아서 반복
             for move in path:
                 self.pheromone[move] += 1.0 / self.distances[move]  # 지나온 경로에 페로몬 +1
 
@@ -61,8 +76,8 @@ class AntColony(object):
         for i in range(self.n_ants):  # 개미 수 만큼 반복
             # print('ant:', i)
             path, visited = self.gen_path(self.start)  # 지나온 경로. 시작노드 설정
-            all_paths.append((path, self.gen_path_dist(path)))  # 지나온 경로와 거리 저장
-        return all_paths, visited
+            all_paths.append([path, self.gen_path_dist(path),visited])  # 지나온 경로와 거리 저장
+        return all_paths
 
     # 지나온 경로를 return하는 함수
     def gen_path(self, start):
