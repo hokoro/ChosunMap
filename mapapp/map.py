@@ -149,8 +149,6 @@ class Mapping:
         self.map_mode = mode
         self.map = folium.Map(location=[35.14084745080004, 126.93006806955218], zoom_start=17,
                               width='100%', height='100%')
-        self.walk_count = Search.objects.count()
-        self.bus_count = Search_Bus.objects.count()
 
     def Basicing(self, names, latitudes, longitudes, colors, roles, prefixs, homepages):
         for name, latitude, longitude, color, role, prefix, homepage in zip(names, latitudes,
