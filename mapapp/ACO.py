@@ -55,11 +55,10 @@ class AntColony(object):
             # print(smallest_visited)
         return smallest_visited, all_time_shortest_path[1]  # 지나온 노드와 거리 리턴
 
-
     # 페로몬 뿌리는 함수
     def spread_pheromone(self, all_paths, n_best, shortest_path):
         sorted_paths = sorted(all_paths, key=lambda x: x[1])  # 거리 기준으로 오름차순 정렬
-        for path, dist,visited in sorted_paths[:n_best]:  # n_best 만큼의 최적의 경로를 뽑아서 반복
+        for path, dist, visited in sorted_paths[:n_best]:  # n_best 만큼의 최적의 경로를 뽑아서 반복
             for move in path:
                 self.pheromone[move] += 1.0 / self.distances[move]  # 지나온 경로에 페로몬 +1
 
@@ -76,7 +75,7 @@ class AntColony(object):
         for i in range(self.n_ants):  # 개미 수 만큼 반복
             # print('ant:', i)
             path, visited = self.gen_path(self.start)  # 지나온 경로. 시작노드 설정
-            all_paths.append([path, self.gen_path_dist(path),visited])  # 지나온 경로와 거리 저장
+            all_paths.append([path, self.gen_path_dist(path), visited])  # 지나온 경로와 거리 저장
         return all_paths
 
     # 지나온 경로를 return하는 함수
@@ -88,7 +87,7 @@ class AntColony(object):
         realvisited.append(start)
         prev = start
         falsecount = 0
-        for i in range(len(self.distances)-1):  # 거리 저장한 배열의 크기만큼 반복
+        for i in range(len(self.distances) - 1):  # 거리 저장한 배열의 크기만큼 반복
             move = self.pick_move(self.pheromone[prev], self.distances[prev], visited)  # 다음으로 갈 노드 선택
             if not move:
                 realvisited.remove(prev)
@@ -121,4 +120,3 @@ class AntColony(object):
             # 현재 노드에서 연결된 모든 노드중 다음으로 이동할 노드 선택 (위에서 구한 확률 이용)
             move = np_choice(self.all_inds, 1, p=norm_row)[0]
             return move
-
